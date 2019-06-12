@@ -1,0 +1,19 @@
+version: "3"
+services:
+  web:
+    build: 
+      context: .  # specifying where is the working directory, from where need to copy folder
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000" # list of port for mapping
+    volumes:
+      - /app/node_modules # removing node modules 
+      - .:/app # copy existing directory to app folder inside container
+  tests:
+    build: 
+      context: . 
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules 
+      - .:/app 
+    command: ["npm","run","test"] 
